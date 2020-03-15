@@ -1,4 +1,4 @@
-namespace webapp.API.Controllers.Models
+namespace webapp.API.Models
 {
     public class Value
     {
