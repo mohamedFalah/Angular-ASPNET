@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using webapp.API.Controllers.Models;
 
-namespace webapp.API.Properties.Data
+namespace webapp.API.Data
 {
 
     //will let the app thinks this class as service
@@ -12,5 +12,7 @@ namespace webapp.API.Properties.Data
 
         //Values represent the table name 
         public DbSet<Value> Values { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }
