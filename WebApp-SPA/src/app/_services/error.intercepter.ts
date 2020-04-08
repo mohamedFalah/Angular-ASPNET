@@ -16,7 +16,7 @@ export class ErrorIntercepter implements HttpInterceptor {
             }
             if(error instanceof HttpErrorResponse) {
                 const applicationError = error.headers.get('Application-Error');
-                if (applicationError){
+                if (applicationError) {
                     return throwError(applicationError);
                 }
                 const serverError = error.error;
@@ -31,7 +31,7 @@ export class ErrorIntercepter implements HttpInterceptor {
                 return throwError(modelStateErrors || serverError || 'Server Error');
             }
         })
-    ))
+    ));
   }
 }
 
@@ -39,4 +39,4 @@ export const ErrorIntercepterProvider = {
     provide : HTTP_INTERCEPTORS,
     useClass: ErrorIntercepter,
     multi: true
-}
+};
