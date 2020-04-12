@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -37,14 +38,18 @@ namespace webapp.API
         {
             //order is not important but it is better for readablity 
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt => {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddCors();
+            services.AddAutoMapper(typeof(FriendshipRepository).Assembly);
             // 1- singlation will create single instance of our repository throught the app 
             // cause issue when there is concrent requests
             // 2- transient usefull for light wieght stateless services
             // creates repository each time request come 
             // 3- scoped service created once per request and else it is equivalent for singlation
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IFriendshipRepository, FriendshipRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters {
