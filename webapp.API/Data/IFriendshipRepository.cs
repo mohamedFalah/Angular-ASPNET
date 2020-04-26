@@ -16,5 +16,8 @@ namespace webapp.API.Data
          //help
          Task<IEnumerable<User>> GetUsers();
          Task<User> GetUser(int id);
+         Task<Photo> GetPhoto(int id);
+
+         Task<Photo> getMainPhoto(int userId);
     }
 }

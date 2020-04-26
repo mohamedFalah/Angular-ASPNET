@@ -43,6 +43,7 @@ namespace webapp.API
             });
             services.AddCors();
             services.AddAutoMapper(typeof(FriendshipRepository).Assembly);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             // 1- singlation will create single instance of our repository throught the app 
             // cause issue when there is concrent requests
             // 2- transient usefull for light wieght stateless services
