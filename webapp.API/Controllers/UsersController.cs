@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapp.API.Data;
 using webapp.API.Dtos;
+using webapp.API.Helpers;
 
 namespace webapp.API.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -30,8 +32,9 @@ namespace webapp.API.Controllers
             var userToReturn = mapper.Map<IEnumerable<UserForListDto>>(users);
             return Ok(userToReturn);
         }
-        [HttpGet("{id}")]
 
+
+        [HttpGet("{id}", Name= "GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await repo.GetUser(id);

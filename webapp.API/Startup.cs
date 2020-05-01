@@ -42,6 +42,7 @@ namespace webapp.API
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            services.AddScoped<LogUserActivity>();
             services.AddAutoMapper(typeof(FriendshipRepository).Assembly);
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             // 1- singlation will create single instance of our repository throught the app 

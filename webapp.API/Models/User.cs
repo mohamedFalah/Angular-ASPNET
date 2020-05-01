@@ -5,6 +5,21 @@ namespace webapp.API.Models
 {
     public class User
     {
+        public User(int id, string username, string gender, DateTime dateOfBirth, DateTime lastActive, string introduction, string lookingFor, string interests, string city, string country, DateTime created)
+        {
+            this.Id = id;
+            this.Username = username;
+            this.Gender = gender;
+            this.DateOfBirth = dateOfBirth;
+            this.LastActive = lastActive;
+            this.Introduction = introduction;
+            this.LookingFor = lookingFor;
+            this.Interests = interests;
+            this.City = city;
+            this.Country = country;
+            this.Created = created;
+
+        }
         public int Id { get; set; }
 
         public string Username { get; set; }
@@ -27,8 +42,8 @@ namespace webapp.API.Models
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
 
+        public DateTime Created { get; set; }
 
-
-    }
+}
 
 }
