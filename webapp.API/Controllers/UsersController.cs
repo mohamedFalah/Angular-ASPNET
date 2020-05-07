@@ -26,10 +26,26 @@ namespace webapp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await repo.GetUsers();
+            //get the current user ID 
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            //get the user from repo 
+            var userFromRepo =  await repo.GetUser(currentUserId);
+            //add the user to the userParams property
+            userParams.UserId = currentUserId;
+
+            //fiter the user by gender  to display the opposite gender
+            // if(!string.IsNullOrEmpty(userParams.Gender))
+            // {
+            //     userParams.Gender = userFromRepo.Gender == "male" ? "female" : "male";
+
+            // }
+
+            var users = await repo.GetUsers(userParams);
             var userToReturn = mapper.Map<IEnumerable<UserForListDto>>(users);
+            Response.AddPagination(users.CurrentPage, users.Pagesize, users.TotalCount, users.TotalPages);
             return Ok(userToReturn);
         }
 

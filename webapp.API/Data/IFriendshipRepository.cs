@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using webapp.API.Helpers;
 using webapp.API.Models;
 
 namespace webapp.API.Data
@@ -14,7 +15,7 @@ namespace webapp.API.Data
          Task<bool> SaveAll();
 
          //help
-         Task<IEnumerable<User>> GetUsers();
+         Task<PagedList<User>> GetUsers(UserParams userParams);
          Task<User> GetUser(int id);
          Task<Photo> GetPhoto(int id);
 
