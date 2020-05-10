@@ -15,5 +15,22 @@ namespace webapp.API.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<Add>  Adds { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder){
+            builder.Entity<Add>()
+                .HasKey(k => new {k.AdderId, k.AddedId});
+            builder.Entity<Add>()
+                .HasOne(u => u.Added)
+                .WithMany(u => u.Adders)
+                .HasForeignKey(u => u.AddedId)
+                .OnDelete(DeleteBehavior.Restrict);
+             builder.Entity<Add>()
+                .HasOne(u => u.Adder)
+                .WithMany(u => u.Addeds)
+                .HasForeignKey(u => u.AdderId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }

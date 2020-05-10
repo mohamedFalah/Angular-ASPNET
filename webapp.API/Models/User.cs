@@ -44,6 +44,11 @@ namespace webapp.API.Models
 
         public DateTime Created { get; set; }
 
+        public ICollection<Add> Adders  { get; set; }
+
+        public ICollection<Add> Addeds  { get; set; }
+
+
 }
 
 }

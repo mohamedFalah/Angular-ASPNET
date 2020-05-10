@@ -20,5 +20,7 @@ namespace webapp.API.Data
          Task<Photo> GetPhoto(int id);
 
          Task<Photo> getMainPhoto(int userId);
+
+         Task<Add> GetAdd(int userId, int recipientId);
     }
 }

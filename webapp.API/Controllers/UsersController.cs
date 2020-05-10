@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using webapp.API.Data;
 using webapp.API.Dtos;
 using webapp.API.Helpers;
+using webapp.API.Models;
 
 namespace webapp.API.Controllers
 {
@@ -74,6 +75,33 @@ namespace webapp.API.Controllers
 
             throw new Exception($"updating user {id} faild with save");
         }
+
+        [HttpPost("{id}/add/{recipientId}")]
+
+        public async Task<IActionResult> AddUser(int id, int recipientId)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+            
+            var add = await repo.GetAdd(id, recipientId);
+
+            if(add != null)
+                return BadRequest(" you added this user");
+            if (await repo.GetUser(recipientId) == null)
+                return NotFound();
+            add = new Add 
+            {   
+                AdderId = id,
+                AddedId = recipientId
+            };
+
+            repo.Add<Add>(add);
+
+            if (await repo.SaveAll())
+                return Ok();
+
+            return BadRequest("failed to add user");
+        } 
 
     }
 }
