@@ -5,6 +5,9 @@ namespace webapp.API.Models
 {
     public class User
     {
+        public User()
+        { 
+        }
         public User(int id, string username, string gender, DateTime dateOfBirth, DateTime lastActive, string introduction, string lookingFor, string interests, string city, string country, DateTime created)
         {
             this.Id = id;
