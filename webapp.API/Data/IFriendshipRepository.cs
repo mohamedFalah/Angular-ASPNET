@@ -22,5 +22,11 @@ namespace webapp.API.Data
          Task<Photo> getMainPhoto(int userId);
 
          Task<Add> GetAdd(int userId, int recipientId);
+
+         Task<Message> GetMessage(int id);
+
+         Task<PagedList<Message>> GetMessagesForUsers(MessageParams messageParams);
+
+         Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId);
     }
 }

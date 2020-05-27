@@ -11,9 +11,9 @@ import { User } from '../_models/user';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
   model: any = {};
   photoUrl: string;
+  user = false;
   constructor(public authService: AuthService, private alertify: AlertifyService,
               private router: Router, private userService: UserService) { }
 
@@ -32,6 +32,7 @@ export class NavComponent implements OnInit {
   }
 
   loggedIn() {
+    this.user = true;
     return this.authService.loggedIn();
   }
 
@@ -41,6 +42,7 @@ export class NavComponent implements OnInit {
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.alertify.message('logged out');
+    this.user = false;
     this.router.navigate(['/home']);
   }
 

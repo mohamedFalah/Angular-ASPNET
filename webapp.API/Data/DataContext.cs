@@ -18,6 +18,8 @@ namespace webapp.API.Data
 
         public DbSet<Add>  Adds { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder){
             builder.Entity<Add>()
                 .HasKey(k => new {k.AdderId, k.AddedId});
@@ -30,6 +32,15 @@ namespace webapp.API.Data
                 .HasOne(u => u.Adder)
                 .WithMany(u => u.Addeds)
                 .HasForeignKey(u => u.AdderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .HasOne(u => u.Sender)
+                .WithMany(m => m.MessagesSent)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Message>()
+                .HasOne(u => u.Recipient)
+                .WithMany(m => m.MessagesReceived)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

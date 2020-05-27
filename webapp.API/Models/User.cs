@@ -51,6 +51,10 @@ namespace webapp.API.Models
 
         public ICollection<Add> Addeds  { get; set; }
 
+        public ICollection<Message> MessagesSent { get; set; }
+
+        public ICollection<Message> MessagesReceived { get; set; }
+
 
 }
 
